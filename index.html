@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>EC500 Redis Interface</title>
@@ -7,98 +8,122 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
-<body>
-<header class="d-flex justify-content-center py-3">
-    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Gitlab</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-    </ul>
-</header>
-<div>
-    <form class="container">
-    <header>
-        <h1 align="center">
-            <br/> EC500  Redis Interface
 
-        </h1>
-        <br>
-    </header>
+<body style="background-color: #062f4f; color: azure;" >
+    <div>
+        <form class="container">
+        <header>
+            <h1>
+                <br><br> Redis Interface
+                <br><br>
+            </h1>
+        </header>
 
-    <section class="main-section">
-<!--        <form action=" ", method="post">-->
-            <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" rows="3"></textarea>
-                <br>
-<!--                <button class="btn btn-primary" onclick="hash(document.getElementById('salt').value,document.getElementById('password').value)">Submit</button>-->
-                <div class="d-grid gap-2 col-6 mx-auto">
-<!--                <button class="btn btn-primary" onclick="hash()">Submit</button>-->
-                    <button class="btn btn-primary" onclick="getResponse()">Submit</button>
-                <br>
+        <section class="main-section">
+
+        <!-- Salt and Password input -->
+        <div class="mb-3 row g-2">
+            <label for="salt" class="form-label">Salt</label>
+            <input type="text" class="form-control" id="salt" placeholder="Please input a string.">
+
+            <label for="exampleInputPassword1" class="form-label" >Password</label>
+            <div class="col-sm-11">
+                <input type="password" class="form-control" id="password" placeholder="Please input your password.">
             </div>
-<!--        </form>-->
+            <div class="col-sm">
+                <input class="btn btn-primary" type="button" id = "hash" value="Hash">
+            </div>
+        </div>
+
+        <!-- Redis command input -->
+        <div class="mb-3">
+            <label for="message" class="form-label">Redis Command</label>
+            <textarea class="form-control" id="message" placeholder='Please input the redis command.' rows="1"></textarea>
+            <br>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <input class="btn btn-primary" type="button" id = "submit" value="Submit">
+            </div>
+        </div>
+
+        <!-- Return result from server -->
+        <div class="mb-3">
+            <label for="response" class="form-label">Return</label>
+            <textarea class="form-control" id="response" rows="3"></textarea>
+        </div>
+
+        <div style="text-align: center;">
+            <br><img src="icons8-whale-64.png"> Jiawei&Yiqin
+        </div>
+
+        <!-- Function md5 -->
         <script src="static/js/md5.min.js"></script>
+
         <script>
+            salt = "";
+            password = ""; // A9774149D3326
 
+            /**
+             * Get salt and password from user input.
+             * @return: nothing but help set salt and password;
+             */
+            function setPw() {
+                salt = document.getElementById('salt').value;
+                password = document.getElementById('password').value;
+                if (salt.length == 0 || salt == null) {
+                    alert("Please input salt.");
+                }
+                else if (password.length == 0 || password == null) {
+                    alert("Please input your password.");
+                }
+            }
 
+            hash.addEventListener('click', setPw);
+
+            /**
+             * Get return result by using redis commands.
+             * Redis command comes from user input.
+             * @return: the result from server.
+             */
             function getResponse() {
-                var salt = "Hello world!"
-                var password = "A9774149D3326";
                 var strHash = md5(salt + password);
-                // alert('Salted MD5 hash is: ' + strHash);
-                console.log('Salted MD5 hash is: ' + strHash);
                 let message = document.getElementById('message').value;
                 let url = "https://agile.bu.edu/ec500_scripts/redis.php?" + "salt=" + salt + "&hash=" + strHash + "&message=" + message;
-
                 var xml = new XMLHttpRequest();
                 xml.open("GET", url, false);
                 xml.send(null);
-                alert('Response is: ' + xml.responseText);
-                return xml.responseText;
 
+                if (message.length == 0 || message == null) {
+                    alert("Please input the redis command.");
+                }
+                else if (password.length == 0 || password == null) {
+                    alert("Please click Hash button before submit.");
+                }
+                else if (xml.responseText == null || xml.responseText.length == 0) {
+                    alert("Please Input valid password.");
+                }
+                return xml.responseText;
             }
 
+            /**
+             * Get specific information returned from redis.
+             * @return: the information printed to Return part.
+             */
+            function outp() {
+                var text = getResponse();
+                var result = text.split('Result:')[1].trim();
+                var outText = "";
+                for (var element in result) {
+                    outText = element + " ";
+                }
+                document.getElementById('response').innerHTML = result;
+            }
+
+            submit.addEventListener('click', outp);
+
         </script>
-                <div class="mb-3">
-                    <label for="response" class="form-label">Serve Response</label>
-                    <textarea class="form-control" id="response" rows="3"></textarea>
-                </div>
-            </div>
+    </div>
 
-    </section>
-    </form>
-    <br>
-    <br>
-    <footer>
-        <hr>
-        <br>
-        <br>
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <p>CE office, MA</p>
-                </div>
-                <div class="col order-5">
-                    <p>info@eng.com</p>
-                </div>
-                <div class="col order-1">
-                    <p>+1 800 123 456</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
 
-<!--<script src="md5.min.js"></script>-->
-<!--<script>-->
-<!--    let salt = 'i#8^*uu'; //your arbitrary secret key-->
-<!--    let str = 'Hello world!';-->
-<!--    var strHash = md5(salt + str);-->
-<!--    console.log('Salted MD5 hash is: ' + strHash);-->
-<!--</script>-->
 
 
 </body>
