@@ -34,7 +34,7 @@ We created a web-based interface for the EC500 Redis server. The webpage consist
 
 
 
-##### Result
+#### Result
 
 Example screenshot
 
