@@ -31,3 +31,17 @@ We created a web-based interface for the EC500 Redis server. The webpage consist
 3. #### Lastly, display the data retrieved from the Redis server.
 
    After getting the response from the server,  we showed the fetched data on the webpage. Meanwhile, add an event listener to control the time to display the information.
+
+
+
+##### Result
+
+Example screenshot
+
+
+
+![set](./img/set.jpg)
+
+
+
+![Get](./img/set.jpg)
