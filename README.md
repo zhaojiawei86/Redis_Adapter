@@ -8,7 +8,7 @@ We created a web-based interface for the EC500 Redis server. The webpage consist
 
 
 
-1. ##### First of all, set up the password. 
+1. #### First of all, set up the password. 
 
    
 
@@ -16,9 +16,9 @@ We created a web-based interface for the EC500 Redis server. The webpage consist
 
 
 
-2. ##### The second step is to send requests to the Redis database. 
+2. #### The main part is to send requests to the Redis server. 
 
-   After hashing the password, we constructed the URL to send the Get request, which composes the Redis server address, the salt user entered, the hash string just produced, and the command message the user sent to the server, such as 
+   After hashing the password, we constructed the URL to send the Get request to the Redis Server, which composes the Redis server address, the salt user entered, the hash string just produced, and the command message the user sent to the server, such as 
 
 ```javascript
 "https://agile.bu.edu/ec500_scripts/redis.php?" + "salt=" + salt + "&hash=" + HashString + "&message=" + message
@@ -28,6 +28,6 @@ We created a web-based interface for the EC500 Redis server. The webpage consist
 
 
 
-3. ##### Lastly, display the data retrieved from the Redis server.
+3. #### Lastly, display the data retrieved from the Redis server.
 
    After getting the response from the server,  we showed the fetched data on the webpage. Meanwhile, add an event listener to control the time to display the information.
