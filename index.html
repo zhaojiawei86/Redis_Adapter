@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EC500 Redis Interface</title>
+<!--    <link rel="stylesheet" href="css/styles.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Gitlab</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+    </ul>
+</header>
+<div>
+    <form class="container">
+    <header>
+        <h1 align="center">
+            <br/> EC500  Redis Interface
+        </h1>
+        <br>
+    </header>·
+
+    <section class="main-section">
+        <form action=" ", method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <br>
+<!--                <button class="btn btn-primary" onclick="hash(document.getElementById('salt').value,document.getElementById('password').value)">Submit</button>-->
+                <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" onclick="hash()">Submit</button>
+
+                <br>
+            </div>
+        </form>
+        <script src="static/js/md5.min.js"></script>
+        <script>
+            function hash(){
+                // var salt = document.getElementById('salt').value;
+                // var password = document.getElementById('password').value;
+
+                var salt = "Hello world!"
+                var password = "1234567890";
+                var strHash = md5(salt + password);
+                alert(strHash);
+                console.log('Salted MD5 hash is: ' + strHash);
+            }
+
+        </script>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Serve Response</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                </div>
+
+
+    </section>
+    </form>
+    <br>
+    <br>
+    <footer>
+        <hr>
+        <br>
+        <br>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <p>CE office, MA</p>
+                </div>
+                <div class="col order-5">
+                    <p>info@eng.com</p>
+                </div>
+                <div class="col order-1">
+                    <p>+1 800 123 456</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!--<script src="md5.min.js"></script>-->
+<!--<script>-->
+<!--    let salt = 'i#8^*uu'; //your arbitrary secret key-->
+<!--    let str = 'Hello world!';-->
+<!--    var strHash = md5(salt + str);-->
+<!--    console.log('Salted MD5 hash is: ' + strHash);-->
+<!--</script>-->
+
+
+</body>
+</html>
