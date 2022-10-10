@@ -22,42 +22,51 @@
     <header>
         <h1 align="center">
             <br/> EC500  Redis Interface
+
         </h1>
         <br>
-    </header>·
+    </header>
 
     <section class="main-section">
-        <form action=" ", method="post">
+<!--        <form action=" ", method="post">-->
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="3"></textarea>
                 <br>
 <!--                <button class="btn btn-primary" onclick="hash(document.getElementById('salt').value,document.getElementById('password').value)">Submit</button>-->
                 <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" onclick="hash()">Submit</button>
-
+<!--                <button class="btn btn-primary" onclick="hash()">Submit</button>-->
+                    <button class="btn btn-primary" onclick="getResponse()">Submit</button>
                 <br>
             </div>
-        </form>
+<!--        </form>-->
         <script src="static/js/md5.min.js"></script>
         <script>
-            function hash(){
-                // var salt = document.getElementById('salt').value;
-                // var password = document.getElementById('password').value;
 
+
+            function getResponse() {
                 var salt = "Hello world!"
-                var password = "1234567890";
+                var password = "A9774149D3326";
                 var strHash = md5(salt + password);
-                alert(strHash);
+                // alert('Salted MD5 hash is: ' + strHash);
                 console.log('Salted MD5 hash is: ' + strHash);
+                let message = document.getElementById('message').value;
+                let url = "https://agile.bu.edu/ec500_scripts/redis.php?" + "salt=" + salt + "&hash=" + strHash + "&message=" + message;
+
+                var xml = new XMLHttpRequest();
+                xml.open("GET", url, false);
+                xml.send(null);
+                alert('Response is: ' + xml.responseText);
+                return xml.responseText;
+
             }
 
         </script>
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Serve Response</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                    <label for="response" class="form-label">Serve Response</label>
+                    <textarea class="form-control" id="response" rows="3"></textarea>
                 </div>
-
+            </div>
 
     </section>
     </form>
